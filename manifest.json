@@ -1,0 +1,9 @@
+{
+  "id": "doodle",
+  "name": "Doodle",
+  "version": "1.0.0",
+  "minAppVersion": "1.11.0",
+  "description": "A cute, minimal drawing tool for your notes.",
+  "author": "Alex",
+  "isDesktopOnly": false
+}
