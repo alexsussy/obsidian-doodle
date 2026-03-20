@@ -172,7 +172,7 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string) {
 
   pip.addEventListener("pointerdown", (e) => {
     e.stopPropagation();
-    popupOpen ? closePopup() : openPopup();
+    if (popupOpen) closePopup(); else openPopup();
   });
 
   swatchRow.addEventListener("pointerdown", (e) => {
