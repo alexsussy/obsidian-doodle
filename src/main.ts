@@ -82,7 +82,7 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string) {
 
   const container  = root.createDiv({ cls: "bd-container" });
   const wrap       = container.createDiv({ cls: "bd-canvas-wrap" });
-  const canvas     = wrap.createEl("canvas", { cls: "bd-canvas" }) as HTMLCanvasElement;
+  const canvas     = wrap.createEl("canvas", { cls: "bd-canvas" });
   canvas.width  = CANVAS_SIZE;
   canvas.height = CANVAS_SIZE;
 
@@ -95,7 +95,7 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string) {
 
   const sliderRow   = popup.createDiv({ cls: "bd-slider-row" });
   const sizePreview = sliderRow.createDiv({ cls: "bd-size-preview" });
-  const slider      = sliderRow.createEl("input", { cls: "bd-size-slider" }) as HTMLInputElement;
+  const slider      = sliderRow.createEl("input", { cls: "bd-size-slider" });
   slider.type  = "range";
   slider.min   = "1";
   slider.max   = "4";
