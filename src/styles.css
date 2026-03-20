@@ -34,6 +34,10 @@
   transition: background 0.15s;
 }
 
+.bd-overlay.bd-hidden {
+  display: none;
+}
+
 .bd-overlay:hover {
   background: rgba(0, 0, 0, 0.15);
 }

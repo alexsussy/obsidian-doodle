@@ -207,7 +207,7 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string) {
 
   function scheduleSave() {
     if (saveTimer) clearTimeout(saveTimer);
-    saveTimer = setTimeout(doSave, 200);
+    saveTimer = setTimeout(() => { void doSave(); }, 200);
   }
 
   async function doSave() {
@@ -218,9 +218,9 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string) {
         try { await app.vault.createFolder(folder); } catch { /* exists */ }
       }
     }
-    canvas.toBlob(async (blob) => {
+    canvas.toBlob((blob) => {
       if (!blob) return;
-      await app.vault.adapter.writeBinary(normalizedPath, await blob.arrayBuffer());
+      void blob.arrayBuffer().then((buf) => app.vault.adapter.writeBinary(normalizedPath, buf));
     }, "image/png");
   }
 
@@ -247,7 +247,7 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string) {
   function enterDrawMode() {
     if (isDrawMode) return;
     isDrawMode = true;
-    overlay.style.display = "none";
+    overlay.addClass("bd-hidden");
     toolbar.addClass("bd-visible");
 
     outsideHandler = (e: PointerEvent) => {
@@ -274,7 +274,7 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string) {
     if (!isDrawMode) return;
     isDrawMode = false;
     isPainting = false;
-    overlay.style.display = "";
+    overlay.removeClass("bd-hidden");
     toolbar.removeClass("bd-visible");
     closePopup();
     if (outsideHandler) {
@@ -336,7 +336,7 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string) {
     enterDrawMode();
   });
 
-  loadImage();
+  void loadImage();
 }
 
 // ── settings tab ──────────────────────────────────────────────────────────────
@@ -352,7 +352,7 @@ class BitmapDrawingSettingTab extends PluginSettingTab {
   display(): void {
     const { containerEl } = this;
     containerEl.empty();
-    containerEl.createEl("h2", { text: "Doodle" });
+    new Setting(containerEl).setName("Doodle").setHeading();
 
     new Setting(containerEl)
       .setName("Doodles folder")
