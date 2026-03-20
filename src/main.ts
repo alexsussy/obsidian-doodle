@@ -48,7 +48,7 @@ export default class BitmapDrawingPlugin extends Plugin {
 
     this.addCommand({
       id: "add-drawing",
-      name: "Add Drawing",
+      name: "Add drawing",
       editorCallback: (editor: Editor) => {
         const folder   = this.settings.drawingsFolder.replace(/\/$/, "");
         const filename = `drawing-${Date.now()}.png`;
@@ -359,7 +359,7 @@ class BitmapDrawingSettingTab extends PluginSettingTab {
       .setDesc("Relative folder where your doodles are saved.")
       .addText((text) =>
         text
-          .setPlaceholder("doodles")
+          .setPlaceholder("Doodles")
           .setValue(this.plugin.settings.drawingsFolder)
           .onChange(async (value) => {
             this.plugin.settings.drawingsFolder = value.trim() || "doodles";
