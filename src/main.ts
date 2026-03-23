@@ -4,6 +4,7 @@ import {
   normalizePath,
   Plugin,
   PluginSettingTab,
+  setIcon,
   Setting,
 } from "obsidian";
 
@@ -350,12 +351,12 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string, plug
           cls: "bd-dropper-btn",
           attr: { title: "Pick from screen" },
         });
-        dropperBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3L15 6"/></svg>`;
+        setIcon(dropperBtn, "pipette");
         dropperBtn.addEventListener("pointerdown", (e) => e.stopPropagation());
         dropperBtn.addEventListener("click", (e) => {
           e.stopPropagation();
-          const dropper = new (window as any).EyeDropper();
-          void (dropper.open() as Promise<{ sRGBHex: string }>).then((result) => {
+          const dropper = new ((window as unknown as Record<string, unknown>).EyeDropper as { new(): { open(): Promise<{ sRGBHex: string }> } })();
+          void dropper.open().then((result) => {
             applyColor(result.sRGBHex);
             deselectSwatches();
           });
@@ -639,7 +640,7 @@ class BitmapDrawingSettingTab extends PluginSettingTab {
 
     new Setting(containerEl)
       .setName("Color picker")
-      .setDesc("Unshackle your restraints. Enables a color picker (OKLab) and dropper tool.")
+      .setDesc("Unshackle your restraints. Enables a color picker and dropper tool.")
       .addToggle((toggle) =>
         toggle
           .setValue(this.plugin.settings.colorPicker)
