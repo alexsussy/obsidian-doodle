@@ -618,7 +618,7 @@ class BitmapDrawingSettingTab extends PluginSettingTab {
   display(): void {
     const { containerEl } = this;
     containerEl.empty();
-    new Setting(containerEl).setName("Doodle").setHeading();
+    new Setting(containerEl).setName("Drawing").setHeading();
 
     new Setting(containerEl)
       .setName("Doodles folder")
