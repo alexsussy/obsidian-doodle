@@ -557,6 +557,7 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string, plug
     pushUndo();
     canvas.setPointerCapture(e.pointerId);
     isPainting   = true;
+    toolbar.addClass("bd-painting");
     strokeRect   = canvas.getBoundingClientRect();
     const r = pressureRadius(e);
     ctx.lineWidth   = r * 2;
@@ -587,6 +588,7 @@ function renderDrawingBlock(app: App, root: HTMLElement, vaultPath: string, plug
   function endStroke() {
     if (!isPainting) return;
     isPainting = false;
+    toolbar.removeClass("bd-painting");
     strokeRect = null;
     scheduleSave();
   }
@@ -618,7 +620,7 @@ class BitmapDrawingSettingTab extends PluginSettingTab {
   display(): void {
     const { containerEl } = this;
     containerEl.empty();
-    new Setting(containerEl).setName("Drawing").setHeading();
+    new Setting(containerEl).setName("Location").setHeading();
 
     new Setting(containerEl)
       .setName("Doodles folder")
@@ -632,6 +634,8 @@ class BitmapDrawingSettingTab extends PluginSettingTab {
             await this.plugin.saveSettings();
           })
       );
+
+    new Setting(containerEl).setName("Features").setHeading();
 
     new Setting(containerEl)
       .setName("Color picker")

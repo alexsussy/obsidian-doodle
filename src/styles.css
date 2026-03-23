@@ -83,6 +83,10 @@
   pointer-events: all;
 }
 
+.bd-toolbar.bd-painting {
+  opacity: 0;
+}
+
 .bd-divider {
   width: 1px;
   height: 17px;
